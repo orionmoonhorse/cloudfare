@@ -1,0 +1,434 @@
+/* ========================================= */
+/* ROOT VARIABLES */
+/* ========================================= */
+:root {
+  --green-dark: #0f2f1f;
+  --green-card: #1c4630;
+  --green-input: #24523a;
+
+  --accent: #f5b000;
+  --accent-hover: #d99a00;
+
+  --text-light: #e9f5ec;
+  --text-soft: #cfe7d8;
+  --border-soft: rgba(255,255,255,0.12);
+
+  --font-base: 20px;
+  --font-large: 1.35rem;
+  --font-xl: 3rem;
+}
+
+/* ========================================= */
+/* RESET */
+/* ========================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: transparent;
+  color: var(--text-light);
+  text-align: center;
+  font-size: var(--font-base);
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================================= */
+/* FULLSCREEN VIDEO BACKGROUND */
+/* ========================================= */
+#bg-video {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3 !important;
+  pointer-events: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.18);
+  z-index: -2 !important;
+}
+
+/* ========================================= */
+/* TOP PHOTO ROW */
+/* ========================================= */
+.top-photo-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0;
+  position: relative;
+  z-index: 3;
+}
+
+.top-photo {
+  width: 30%;
+  max-width: 260px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+/* ========================================= */
+/* GLOBAL IMAGE FIX */
+/* ========================================= */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.corner-photo {
+  width: 160px;
+  margin: 20px auto;
+}
+
+@media (max-width: 900px) {
+  .corner-photo { width: 120px; }
+}
+
+@media (max-width: 750px) {
+  .corner-photo { display: none; }
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+header {
+  background: rgba(15,47,31,0.40);
+  padding: 20px 20px 32px;
+  border-radius: 0 0 16px 16px;
+}
+
+.logo {
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+
+/* ========================================= */
+/* MAIN */
+/* ========================================= */
+main {
+  background: rgba(15,47,31,0.40);
+  border-radius: 16px;
+  margin-top: -6px;
+  padding-top: 20px;
+}
+
+/* ========================================= */
+/* HERO — CENTERED SINGLE‑COLUMN LAYOUT */
+/* ========================================= */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;     /* stack vertically */
+  align-items: center;         /* center horizontally */
+  justify-content: center;     /* center vertically */
+  text-align: center;          /* center text */
+  padding: 60px 20px;
+  gap: 40px;
+}
+
+.hero > div {
+  max-width: 700px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: var(--font-xl);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+/* ========================================= */
+/* TIME SLOT — SELECTED STATE */
+/* ========================================= */
+.time-slot-btn-selected {
+  background: var(--accent) !important;
+  color: var(--green-dark) !important;
+  border: 2px solid var(--accent-hover) !important;
+  box-shadow: 0 0 10px rgba(245,176,0,0.65);
+  transform: scale(1.05);
+}
+
+/* ========================================= */
+/* HERO CARD */
+/* ========================================= */
+.hero-card {
+  background: rgba(28,70,48,0.50);
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.30);
+  border: 1px solid var(--border-soft);
+  margin: 40px auto 0 auto;
+  max-width: 480px;
+}
+
+.hero-card ul {
+  list-style-position: inside;
+  padding-left: 1rem;
+  margin: 0 auto;
+  max-width: 420px;
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.hero-card ul li {
+  margin-bottom: 10px;
+}
+
+/* ========================================= */
+/* BUTTONS */
+/* ========================================= */
+.btn-primary,
+.btn-secondary,
+.jump-book-btn,
+.time-slot-btn {
+  border-radius: 999px;
+  padding: 16px 26px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 650;
+  transition: all 0.18s ease;
+  border: none;
+}
+
+.btn-primary,
+.jump-book-btn {
+  background: var(--accent);
+  color: var(--green-dark);
+  box-shadow: 0 3px 8px rgba(245,176,0,0.35);
+}
+
+.btn-primary:hover,
+.jump-book-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 5px 12px rgba(245,176,0,0.45);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.12);
+  color: var(--text-soft);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+/* ========================================= */
+/* ESTIMATE GRID */
+/* ========================================= */
+.estimate-grid {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 0 20px;
+}
+
+.card {
+  background: rgba(28,70,48,0.50);
+  border-radius: 16px;
+  padding: 26px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.30);
+  font-size: 1.15rem;
+  line-height: 1.45;
+}
+
+/* ========================================= */
+/* CALENDAR + TIME SLOTS */
+/* ========================================= */
+
+.booking-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+#calendar,
+#timeSlots {
+  flex: 1;
+  max-width: 420px;
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+#calendar {
+  background: rgba(28,70,48,0.80);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+}
+
+/* 7-column grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Base calendar cell styling */
+.calendar-cell {
+  padding: 12px;
+  min-height: 44px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.55);
+  color: var(--green-dark);
+  font-weight: 600;
+}
+
+.calendar-cell:hover {
+  background: rgba(255,255,255,0.32);
+}
+
+/* Empty placeholder cells */
+.calendar-cell.empty {
+  background: transparent;
+  border: none;
+  min-height: 44px;
+  cursor: default;
+}
+
+/* Weekday header */
+.calendar-header {
+  font-weight: 700;
+  color: var(--text-light);
+  background: rgba(255,255,255,0.16);
+  border-radius: 6px;
+  padding: 8px 0;
+}
+
+/* Selected day */
+.selected {
+  background: var(--accent) !important;
+  color: var(--green-dark) !important;
+  border: 2px solid var(--accent-hover) !important;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(245,176,0,0.65);
+  transform: scale(1.05);
+}
+
+/* Time slots container */
+#timeSlots {
+  background: rgba(28,70,48,0.80);
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  min-height: 180px;
+  align-content: flex-start;
+}
+
+#timeSlots h4 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+  color: var(--text-soft);
+}
+
+.no-slots {
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--text-soft);
+  opacity: 0.9;
+  margin-top: 20px;
+}
+
+/* ========================================= */
+/* FOOTER */
+/* ========================================= */
+footer {
+  padding: 20px 20px;
+  background: rgba(15,47,31,0.40);
+  color: var(--text-soft);
+  font-size: 1.15rem;
+}
+
+/* ========================================= */
+/* MOBILE */
+/* ========================================= */
+@media (max-width: 750px) {
+  .booking-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #calendar,
+  #timeSlots {
+    max-width: 100%;
+  }
+}
+
+/* ========================================= */
+/* MULTI-MONTH CALENDAR CONTROLS */
+/* ========================================= */
+
+.calendar-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  margin-top: 10px;
+}
+
+.month-nav-btn {
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: var(--text-light);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.18s ease;
+}
+
+.month-nav-btn:hover {
+  background: rgba(255,255,255,0.32);
+  transform: scale(1.05);
+}
+
+.calendar-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+}
+

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jacksonville Gutter Cleaning & Pressure Washing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="images/river.mp4" type="video/mp4">
+</video>
+
+<header>
+  <div class="container">
+    <div class="nav">
+      <div class="logo">River City Gutter Cleaning & Pressure Washing</div>
+      <nav></nav>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="top-photo-row">
+  <img src="images/Cleaning-Gutters.jpg" class="top-photo">
+  <img src="images/Clean-Gutters.jpeg" class="top-photo">
+  <img src="images/Pressure_washer.png" class="top-photo">
+</div>
+
+<section id="hero" class="hero">
+  <div>
+    <div class="hero-highlight">
+      Jacksonville • Licensed & Insured • Same‑Week Appointments
+    </div>
+
+    <h1>Clean Gutters. Bright Exteriors. No Hassle.</h1>
+
+    <p>
+      Get an instant quote and book your appointment in minutes —
+      no phone call, no waiting, no back‑and‑forth.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#estimate" class="btn-primary">Get Instant Quote</a>
+      <a href="#booking" class="jump-book-btn">Book Appointment</a>
+      <a href="tel:2568015535" class="btn-secondary">Call/Text: (256) 801‑5535</a>
+    </div>
+  </div>
+
+ 
+
+<section id="snapshot">
+  <div class="hero-card">
+    <h2>Instant Estimate Snapshot</h2>
+    <p>Most Jacksonville homes fall into these ranges:</p>
+    <ul>
+      <li>Gutter Cleaning: $99–$199</li>
+      <li>Gutter Brightening: +$60–$120</li>
+      <li>Driveway Pressure Washing: $99–$149</li>
+      <li>Siding Soft Wash: $149–$299</li>
+    </ul>
+    <p class="small-note">
+      Get your exact automated quote below — takes under 2 minutes.
+    </p>
+  </div>
+</section>
+
+<section id="services">
+  <h3>Select Your Services</h3>
+
+  <div class="service-grid">
+
+    <label class="service-option">
+      <input type="checkbox" id="svc_gutter_cleaning">
+      Gutter Cleaning
+      <span id="range_gutter_cleaning" class="service-range"></span>
+    </label>
+
+    <label class="service-option">
+      <input type="checkbox" id="svc_gutter_brightening">
+      Gutter Brightening
+      <span id="range_gutter_brightening" class="service-range"></span>
+    </label>
+
+    <label class="service-option">
+      <input type="checkbox" id="svc_pressure_washing">
+      Pressure Washing
+      <span id="range_pressure_washing" class="service-range"></span>
+    </label>
+
+    <label class="service-option">
+      <input type="checkbox" id="svc_soft_wash">
+      Siding Soft Wash
+      <span id="range_soft_wash" class="service-range"></span>
+    </label>
+
+  </div>
+</section>
+
+
+<section id="estimate">
+  <h3>Instant Quote Calculator</h3>
+
+  <div class="estimate-grid">
+
+    <div class="card">
+      <h4>Gutter Cleaning Estimate</h4>
+
+      <label>Home Height</label>
+      <select id="stories_est">
+        <option value="1">1 Story</option>
+        <option value="2">2 Story</option>
+      </select>
+
+      <label>Debris Level</label>
+      <select id="debris_est">
+        <option value="light">Light</option>
+        <option value="medium">Medium</option>
+        <option value="heavy">Heavy</option>
+      </select>
+
+      <label>Gutter Length (optional)</label>
+      <input id="feet_est" type="number" placeholder="Linear feet">
+
+      <button onclick="calculateEstimate()" class="btn-primary">Get Estimate</button>
+      <div id="estimateResult_est" class="estimate-output"></div>
+    </div>
+
+    <div class="card">
+      <h4>Pressure Washing Estimate</h4>
+
+      <label>Surface Type</label>
+      <select id="pw_surface">
+        <option value="driveway">Driveway</option>
+        <option value="sidewalk">Sidewalk</option>
+        <option value="patio">Patio</option>
+        <option value="pooldeck">Pool Deck</option>
+      </select>
+
+      <label>Square Footage (optional)</label>
+      <input id="pw_sqft" type="number" placeholder="Estimated sq ft">
+
+      <label>Buildup Level</label>
+      <select id="pw_buildup">
+        <option value="light">Light Dirt</option>
+        <option value="medium">Medium Dirt/Algae</option>
+        <option value="heavy">Heavy Algae/Tire Marks</option>
+      </select>
+
+      <button onclick="calculatePWEstimate()" class="btn-primary">Get Estimate</button>
+      <div id="pw_estimateResult" class="estimate-output"></div>
+    </div>
+
+  </div>
+
+  <div class="card" id="brightening_card" style="display:none;">
+    <h4>Gutter Brightening Estimate</h4>
+
+    <label>Home Height</label>
+    <select id="bright_height">
+      <option value="1">1 Story</option>
+      <option value="2">2 Story</option>
+    </select>
+
+    <label>Linear Feet (optional)</label>
+    <input id="bright_feet" type="number" placeholder="Linear feet">
+
+    <button onclick="calculateBrightening()" class="btn-primary">Get Estimate</button>
+    <div id="bright_result" class="estimate-output"></div>
+  </div>
+
+  <div class="card" id="softwash_card" style="display:none;">
+    <h4>Siding Soft Wash Estimate</h4>
+
+    <label>Square Footage (optional)</label>
+    <input id="soft_sqft" type="number" placeholder="Estimated sq ft">
+
+    <label>Buildup Level</label>
+    <select id="soft_buildup">
+      <option value="light">Light Dirt</option>
+      <option value="medium">Medium Algae</option>
+      <option value="heavy">Heavy Algae</option>
+    </select>
+
+    <button onclick="calculateSoftWash()" class="btn-primary">Get Estimate</button>
+    <div id="soft_result" class="estimate-output"></div>
+  </div>
+
+  <div class="card" id="total_card">
+    <h4>Total Estimated Price</h4>
+    <div id="total_result" class="estimate-output">
+      Select services and run estimators to see your total.
+    </div>
+  </div>
+
+</section>
+
+<section id="booking">
+  <h3>Book an Appointment</h3>
+  <p class="section-subtitle">Choose a date to see available times.</p>
+
+<div class="booking-layout">
+
+  <!-- Month Navigation -->
+  <div id="calendar-controls" class="calendar-controls">
+    <button id="prevMonthBtn" class="month-nav-btn">← Prev</button>
+    <span id="calendarTitle" class="calendar-title"></span>
+    <button id="nextMonthBtn" class="month-nav-btn">Next →</button>
+  </div>
+
+  <!-- ⭐ ACTUAL CALENDAR GRID (you accidentally removed this) -->
+  <div id="calendar">
+    <div class="calendar-grid"></div>
+  </div>
+
+  <!-- Time Slots -->
+  <div id="timeSlots"></div>
+
+  <!-- Slot Error -->
+  <div id="slotError" style="color: red; display: none; margin-top: 10px;"></div>
+
+</div>
+
+  <div id="availability_output" class="availability-output"></div>
+
+  <div id="bookingFormContainer" class="hidden">
+    <h4>Finish Booking</h4>
+    <div class="contact-card">
+
+      <!-- ⭐ FIXED FORM (no validation blockers) ⭐ -->
+      <form id="booking-form" novalidate>
+        <label>Name</label>
+        <input name="name" type="text">
+
+        <label>Phone</label>
+        <input name="phone" type="text">
+
+        <label>Email</label>
+        <input name="email" type="text">
+
+        <label>Service Address</label>
+        <input name="service_address" type="text">
+
+        <label>Notes</label>
+        <textarea name="notes"></textarea>
+
+        <button type="submit" class="btn-primary full-width">Book Appointment</button>
+      </form>
+
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 River City Gutter & Wash • Jacksonville, FL</div>
+    <div>Licensed & Insured • Exterior Cleaning & Gutter Services</div>
+  </div>
+</footer>
+
+<script src="api.js"></script>
+<script src="booking.js"></script>
+<script src="estimators.js?v=3"></script>
+
+</body>
+</html>
