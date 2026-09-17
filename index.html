@@ -2,14 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title> River City Gutter Cleaning & Pressure Washing </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gutter Cleaning & Pressure Washing in Jacksonville FL | River City</title>
+  <meta name="description" content="River City provides gutter cleaning, pressure washing, soft washing, and exterior cleaning in Jacksonville FL. Licensed & insured with same‑week appointments and instant online quotes.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "River City Gutter Cleaning & Pressure Washing",
+  "image": "https://rivercitygutterwash.com/images/Cleaning-Gutters.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "3900 Mission Drive #5",
+    "addressLocality": "Jacksonville",
+    "addressRegion": "FL",
+    "postalCode": "32217"
+  },
+  "telephone": "(256) 801-5535",
+  "url": "https://rivercitygutterwash.com",
+  "priceRange": "$$",
+  "description": "Licensed and insured gutter cleaning and pressure washing in Jacksonville FL. Same-week appointments and instant online quotes.",
+  "areaServed": "Jacksonville FL",
+  "openingHours": "Mo-Sa 09:00-18:00"
+}
+</script>
+
 </head>
 
 <body>
 
-<video autoplay muted loop playsinline id="bg-video">
+<video autoplay muted loop playsinline id="bg-video" aria-label="Jacksonville river background video for exterior cleaning services">
   <source src="images/river.mp4" type="video/mp4">
 </video>
 
@@ -25,9 +50,9 @@
 <main>
 
 <div class="top-photo-row">
-  <img src="images/Cleaning-Gutters.jpg" class="top-photo">
-  <img src="images/Clean-Gutters.jpeg" class="top-photo">
-  <img src="images/Pressure_washer.png" class="top-photo">
+  <img src="images/Cleaning-Gutters.jpg" class="top-photo" alt="Gutter cleaning service in Jacksonville FL">
+  <img src="images/Clean-Gutters.jpeg" class="top-photo" alt="Clean gutters after professional service in Jacksonville">
+  <img src="images/Pressure_washer.png" class="top-photo" alt="Pressure washing driveway in Jacksonville FL">
 </div>
 
 <section id="hero" class="hero">
@@ -46,11 +71,10 @@
     <div class="hero-cta">
       <a href="#estimate" class="btn-primary">Get Instant Quote</a>
       <a href="#booking" class="jump-book-btn">Book Appointment</a>
-      <a href="tel:2568015535" class="btn-secondary">Call/Text: (256) 801‑5535</a>
+      <a href="tel:2568015535" class="btn-secondary">Call/Text for Questions: (256) 801‑5535</a>
     </div>
   </div>
-
- 
+</section>
 
 <section id="snapshot">
   <div class="hero-card">
@@ -66,6 +90,16 @@
       Get your exact automated quote below — takes under 2 minutes.
     </p>
   </div>
+</section>
+
+<section id="jacksonville-info">
+  <h2>Gutter Cleaning & Pressure Washing in Jacksonville, FL</h2>
+  <p>
+    Jacksonville’s heavy rain, humidity, and oak trees cause gutters to clog quickly.
+    Regular gutter cleaning prevents overflow, foundation damage, and wood rot.
+    Our pressure washing and soft wash services remove algae, mildew, and dirt
+    caused by Florida’s humid climate — keeping your home exterior clean and protected.
+  </p>
 </section>
 
 <section id="services">
@@ -100,7 +134,6 @@
   </div>
 </section>
 
-
 <section id="estimate">
   <h3>Instant Quote Calculator</h3>
 
@@ -112,7 +145,6 @@
       <label>Home Height</label>
       <select id="stories_est">
         <option value="1">1 Story</option>
-        <option value="2">2 Story</option>
       </select>
 
       <label>Debris Level</label>
@@ -198,39 +230,67 @@
 
 </section>
 
+<section id="faq">
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>How much does gutter cleaning cost in Jacksonville?</h3>
+  <p>Most homes fall between $99–$199 depending on height, debris level, and gutter length.</p>
+
+  <h3>Do you offer same‑week appointments?</h3>
+  <p>Yes — most gutter cleaning and pressure washing jobs are scheduled within 2–5 days.</p>
+
+  <h3>Is pressure washing safe for siding?</h3>
+  <p>We use soft wash methods to protect paint, stucco, Hardie board, and vinyl siding from damage.</p>
+
+  <h3>How often should gutters be cleaned?</h3>
+  <p>Jacksonville homeowners typically need cleaning every 6–12 months due to heavy rainfall and oak tree debris.</p>
+
+  </section>
+
 <section id="booking">
   <h3>Book an Appointment</h3>
   <p class="section-subtitle">Choose a date to see available times.</p>
 
 <div class="booking-layout">
 
-  <!-- Month Navigation -->
   <div id="calendar-controls" class="calendar-controls">
     <button id="prevMonthBtn" class="month-nav-btn">← Prev</button>
     <span id="calendarTitle" class="calendar-title"></span>
     <button id="nextMonthBtn" class="month-nav-btn">Next →</button>
   </div>
 
-  <!-- ⭐ ACTUAL CALENDAR GRID (you accidentally removed this) -->
   <div id="calendar">
     <div class="calendar-grid"></div>
   </div>
 
-  <!-- Time Slots -->
   <div id="timeSlots"></div>
 
-  <!-- Slot Error -->
   <div id="slotError" style="color: red; display: none; margin-top: 10px;"></div>
 
 </div>
 
   <div id="availability_output" class="availability-output"></div>
 
+  <div id="appointmentSummary" class="appointment-summary-card" style="display:none; margin-top:20px;">
+    <h4>Your Appointment Details</h4>
+    <p id="summaryText"></p>
+  </div>
+
+<section id="service-links">
+  <h2>Explore Our Exterior Cleaning Services</h2>
+  <p>
+    <a href="/gutter-cleaning.html" style="color: var(--text-light);">Gutter Cleaning in Jacksonville</a> •
+    <a href="/gutter-brightening.html" style="color: var(--text-light);">Gutter Brightening (Oxidation Removal)</a> •
+    <a href="/pressure-washing.html" style="color: var(--text-light);">Pressure Washing Services</a> •
+    <a href="/siding-soft-wash.html" style="color: var(--text-light);">Siding Soft Wash House Cleaning</a>
+  </p>
+</section>
+
+
   <div id="bookingFormContainer" class="hidden">
     <h4>Finish Booking</h4>
     <div class="contact-card">
 
-      <!-- ⭐ FIXED FORM (no validation blockers) ⭐ -->
       <form id="booking-form" novalidate>
         <label>Name</label>
         <input name="name" type="text">
@@ -261,8 +321,29 @@
 
 </section>
 
-</main>
+<section id="reviews">
+  <h2>Customer Reviews</h2>
+  <p>⭐⭐⭐⭐⭐ “Fast, professional, and affordable. My gutters look brand new.” – Jacksonville homeowner</p>
+  <p>⭐⭐⭐⭐⭐ “Best pressure washing service I’ve used in Jacksonville.” – Arlington homeowner</p>
+  <p>⭐⭐⭐⭐⭐ “Quick scheduling and great communication. Highly recommend River City.” – Mandarin homeowner</p>
+</section>
 
+<section id="areas">
+  <h2>Serving All Jacksonville Neighborhoods</h2>
+  <ul>
+    <li>Arlington</li>
+    <li>Mandarin</li>
+    <li>Southside</li>
+    <li>San Marco</li>
+    <li>Baymeadows</li>
+    <li>Jacksonville Beach</li>
+    <li>Riverside</li>
+    <li>Town Center</li>
+    <li>Durbin</li>
+  </ul>
+</section>
+
+</main>
 
 <footer>
   <div class="footer-inner">
@@ -274,6 +355,15 @@
     </div>
   </div>
 </footer>
+
+<div id="popupModal" class="modal hidden">
+  <div class="modal-content">
+    <span id="popupClose" class="modal-close">&times;</span>
+    <h2 id="popupTitle">Message</h2>
+    <p id="popupMessage"></p>
+    <button id="popupOkBtn" class="modal-button">OK</button>
+  </div>
+</div>
 
 <script src="api.js"></script>
 <script src="booking.js"></script>

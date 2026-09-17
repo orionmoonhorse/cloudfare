@@ -16,6 +16,8 @@
   --font-base: 20px;
   --font-large: 1.35rem;
   --font-xl: 3rem;
+
+  --font-family: 'Inter', sans-serif;
 }
 
 /* ========================================= */
@@ -28,13 +30,19 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-family);
   background: transparent;
   color: var(--text-light);
   text-align: center;
   font-size: var(--font-base);
   position: relative;
   z-index: 1;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-family);
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 /* ========================================= */
@@ -130,15 +138,15 @@ main {
 }
 
 /* ========================================= */
-/* HERO — CENTERED SINGLE‑COLUMN LAYOUT */
+/* HERO */
 /* ========================================= */
 .hero {
   position: relative;
   display: flex;
-  flex-direction: column;     /* stack vertically */
-  align-items: center;         /* center horizontally */
-  justify-content: center;     /* center vertically */
-  text-align: center;          /* center text */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 60px 20px;
   gap: 40px;
 }
@@ -163,6 +171,25 @@ main {
   border: 2px solid var(--accent-hover) !important;
   box-shadow: 0 0 10px rgba(245,176,0,0.65);
   transform: scale(1.05);
+}
+
+/* ========================================= */
+/* DISABLED TIME SLOT */
+/* ========================================= */
+.disabled-slot {
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: var(--text-soft);
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-radius: 999px;
+  padding: 16px 26px;
+  font-size: 1.2rem;
+  font-weight: 650;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ========================================= */
@@ -261,7 +288,6 @@ main {
 /* ========================================= */
 /* CALENDAR + TIME SLOTS */
 /* ========================================= */
-
 .booking-layout {
   display: flex;
   justify-content: center;
@@ -286,7 +312,6 @@ main {
   box-shadow: 0 4px 12px rgba(0,0,0,0.45);
 }
 
-/* 7-column grid */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -294,7 +319,6 @@ main {
   margin-top: 10px;
 }
 
-/* Base calendar cell styling */
 .calendar-cell {
   padding: 12px;
   min-height: 44px;
@@ -313,7 +337,6 @@ main {
   background: rgba(255,255,255,0.32);
 }
 
-/* Empty placeholder cells */
 .calendar-cell.empty {
   background: transparent;
   border: none;
@@ -321,7 +344,6 @@ main {
   cursor: default;
 }
 
-/* Weekday header */
 .calendar-header {
   font-weight: 700;
   color: var(--text-light);
@@ -330,7 +352,6 @@ main {
   padding: 8px 0;
 }
 
-/* Selected day */
 .selected {
   background: var(--accent) !important;
   color: var(--green-dark) !important;
@@ -340,7 +361,6 @@ main {
   transform: scale(1.05);
 }
 
-/* Time slots container */
 #timeSlots {
   background: rgba(28,70,48,0.80);
   padding: 20px;
@@ -398,7 +418,6 @@ footer {
 /* ========================================= */
 /* MULTI-MONTH CALENDAR CONTROLS */
 /* ========================================= */
-
 .calendar-controls {
   display: flex;
   justify-content: center;
@@ -430,5 +449,96 @@ footer {
   font-weight: 700;
   color: var(--text-soft);
   text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+}
+
+/* ========================================= */
+/* MODAL POPUP */
+/* ========================================= */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--green-card);
+  padding: 32px;
+  width: 90%;
+  max-width: 480px;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  border: 1px solid var(--border-soft);
+  text-align: center;
+  color: var(--text-light);
+}
+
+.modal-close {
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--text-soft);
+  transition: 0.2s ease;
+}
+
+.modal-close:hover {
+  color: var(--accent);
+}
+
+.modal-button {
+  margin-top: 24px;
+  padding: 14px 26px;
+  background: var(--accent);
+  color: var(--green-dark);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 650;
+  box-shadow: 0 3px 8px rgba(245,176,0,0.35);
+  transition: all 0.18s ease;
+}
+
+.modal-button:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 5px 12px rgba(245,176,0,0.45);
+}
+
+/* ========================================= */
+/* FIX PURPLE LINK COLOR — FINAL OVERRIDE */
+/* ========================================= */
+.service-link:link,
+.service-link:visited,
+.service-link:hover,
+.service-link:active {
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+.service-link:hover {
+  color: var(--accent) !important;
+}
+
+/* FINAL FIX — FORCE WHITE LINKS IN ALL STATES */
+.service-link:link,
+.service-link:visited,
+.service-link:hover,
+.service-link:active {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.service-link:hover {
+  color: var(--accent) !important;
 }
 
