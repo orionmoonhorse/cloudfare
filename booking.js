@@ -1,16 +1,15 @@
 function nextDayCutoff(dateObj) {
   const now = new Date();
-  console.log("DEBUG cutoff check:", { now, dateObj });
-
   if (now.getHours() < 20) return false;
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrow = new Date(now);
+  tomorrow.setDate(now.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
 
-  const isCutoff = dateObj.toDateString() === tomorrow.toDateString();
-  console.log("DEBUG nextDayCutoff result:", isCutoff);
+  const selected = new Date(dateObj);
+  selected.setHours(0, 0, 0, 0);
 
-  return isCutoff;
+  return selected.getTime() === tomorrow.getTime();
 }
 
 window.calYear = new Date().getFullYear();
@@ -24,7 +23,6 @@ window.totalMin = 0;
 window.totalMax = 0;
 
 function showModal(title, message) {
-  console.log("DEBUG showModal:", { title, message });
   const modal = document.getElementById("popupModal");
   document.getElementById("popupTitle").textContent = title;
   document.getElementById("popupMessage").innerHTML = message;
@@ -35,7 +33,6 @@ function showModal(title, message) {
 }
 
 function popup(msg) {
-  console.log("DEBUG popup:", msg);
   showModal("Message", msg);
 }
 
@@ -70,7 +67,6 @@ function formatLongDate(dateStr) {
 }
 
 function popupFinalConfirmation(date, time) {
-  console.log("DEBUG final confirmation:", { date, time });
   const [y, m, d] = date.split("-").map(Number);
   const obj = new Date(y, m - 1, d);
   const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][obj.getDay()];
@@ -91,8 +87,6 @@ function updateBookButtonState() {
 }
 
 function renderCalendar(year = window.calYear, month = window.calMonth) {
-  console.log("DEBUG renderCalendar:", { year, month });
-
   const grid = document.querySelector("#calendar .calendar-grid");
   grid.innerHTML = "";
   const title = document.getElementById("calendarTitle");
@@ -114,6 +108,9 @@ function renderCalendar(year = window.calYear, month = window.calMonth) {
     grid.appendChild(empty);
   }
 
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
   for (let day = 1; day <= lastDay.getDate(); day++) {
     const cell = document.createElement("div");
     cell.className = "calendar-cell calendar-day";
@@ -124,13 +121,10 @@ function renderCalendar(year = window.calYear, month = window.calMonth) {
     const dd = String(day).padStart(2, "0");
     const formatted = `${yyyy}-${mm}-${dd}`;
 
-    const today = new Date();
-    today.setHours(0,0,0,0);
-
     const cellDate = new Date(year, month, day);
     cellDate.setHours(0,0,0,0);
 
-    if (cellDate <= today || nextDayCutoff(cellDate)) {
+    if (cellDate <= today) {
       cell.classList.add("disabled-day");
       cell.style.opacity = "0.35";
       cell.style.pointerEvents = "none";
@@ -139,8 +133,6 @@ function renderCalendar(year = window.calYear, month = window.calMonth) {
     }
 
     cell.onclick = () => {
-      console.log("DEBUG calendar click:", { formatted, cellDate });
-
       window.selectedDate = formatted;
       window.selectedDateObj = new Date(cellDate);
       window.selectedSlot = null;
@@ -163,11 +155,9 @@ function renderCalendar(year = window.calYear, month = window.calMonth) {
 }
 
 async function fetchAvailability(date) {
-  console.log("DEBUG fetchAvailability:", date);
-
   const output = document.getElementById("availability_output");
   const slotBox = document.getElementById("timeSlots");
-
+  
   output.innerHTML = "";
   slotBox.innerHTML = "";
 
@@ -176,69 +166,61 @@ async function fetchAvailability(date) {
   try {
     const res = await fetch(`https://fastapi-production-d14c.up.railway.app/availability?date=${date}`);
     slots = await res.json();
-    console.log("DEBUG availability response:", slots);
+
+    console.log("API returned:", slots);
 
     if (!res.ok) {
       output.innerText = slots.detail || "Error fetching availability.";
       return;
     }
   } catch (err) {
-    console.error("ERROR availability fetch:", err);
     output.innerText = "Network error fetching availability.";
     return;
   }
 
   slotBox.innerHTML = "";
 
+  const selectedDateObj = window.selectedDateObj;
+  const cutoff = nextDayCutoff(selectedDateObj);
+
   slots.forEach(slot => {
     const slot24 = convertTo24Hour(slot);
     const slotStd = toStandardTime(slot24);
-
-    const selectedDateObj = window.selectedDateObj;
-    console.log("DEBUG slot render:", { slot, slot24, slotStd, selectedDateObj });
-
-    if (nextDayCutoff(selectedDateObj)) {
-      const grey = document.createElement("div");
-      grey.className = "time-slot-btn disabled-slot";
-      grey.textContent = slotStd;
-      grey.style.opacity = "0.35";
-      grey.style.pointerEvents = "none";
-      slotBox.appendChild(grey);
-      return;
-    }
 
     const btn = document.createElement("button");
     btn.className = "time-slot-btn";
     btn.textContent = slotStd;
 
-    btn.onclick = () => {
-      const selectedDateObjInner = window.selectedDateObj;
-      console.log("DEBUG slot click:", { slotStd, selectedDateObjInner });
+    if (cutoff) {
+      btn.classList.add("disabled-slot");
+      btn.style.opacity = "0.35";
+      btn.style.pointerEvents = "none";
+    } else {
+      btn.onclick = () => {
+        if (nextDayCutoff(window.selectedDateObj)) {
+          popup("Next-day appointments close at 8 PM. Please choose another date.");
+          return;
+        }
 
-      if (nextDayCutoff(selectedDateObjInner)) {
-        popup("Next-day appointments close at 8 PM. Please choose another date.");
-        return;
-      }
+        window.selectedSlot = slotStd;
+        window.bookedSlot24 = slot24;
 
-      window.selectedSlot = slotStd;
-      window.bookedSlot24 = slot24;
+        document.getElementById("slotError").style.display = "none";
 
-      document.getElementById("slotError").style.display = "none";
+        document.querySelectorAll(".time-slot-btn").forEach(b => b.classList.remove("time-slot-btn-selected"));
+        btn.classList.add("time-slot-btn-selected");
 
-      document.querySelectorAll(".time-slot-btn").forEach(b => b.classList.remove("time-slot-btn-selected"));
-      btn.classList.add("time-slot-btn-selected");
+        document.getElementById("bookingFormContainer").classList.remove("hidden");
 
-      document.getElementById("bookingFormContainer").classList.remove("hidden");
-
-      updateBookButtonState();
-    };
+        updateBookButtonState();
+      };
+    }
 
     slotBox.appendChild(btn);
   });
 }
 
 function buildServicesPayload() {
-  console.log("DEBUG buildServicesPayload");
   const services = [];
   if (document.getElementById("svc_gutter_cleaning").checked)
     services.push({ service_type_id: 1, service_name: "Gutter Cleaning", linear_feet: window.gcFeet || 0, min_price: 99, max_price: 149 });
@@ -250,12 +232,10 @@ function buildServicesPayload() {
     services.push({ service_type_id: 4, service_name: "Soft Wash", min_price: 149, max_price: 299 });
   window.totalMin = services.reduce((s, x) => s + x.min_price, 0);
   window.totalMax = services.reduce((s, x) => s + x.max_price, 0);
-  console.log("DEBUG service totals:", { totalMin: window.totalMin, totalMax: window.totalMax });
   return services;
 }
 
 function buildFinalPayload() {
-  console.log("DEBUG buildFinalPayload");
   const f = document.getElementById("booking-form");
   return {
     client: {
@@ -279,12 +259,10 @@ function buildFinalPayload() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DEBUG DOMContentLoaded");
   renderCalendar(window.calYear, window.calMonth);
   updateBookButtonState();
 
   document.getElementById("prevMonthBtn").onclick = () => {
-    console.log("DEBUG prevMonth");
     window.calMonth--;
     if (window.calMonth < 0) {
       window.calMonth = 11;
@@ -294,7 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   document.getElementById("nextMonthBtn").onclick = () => {
-    console.log("DEBUG nextMonth");
     window.calMonth++;
     if (window.calMonth > 11) {
       window.calMonth = 0;
@@ -307,7 +284,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.onsubmit = async e => {
     e.preventDefault();
-    console.log("DEBUG form submit");
 
     const anyService =
       document.getElementById("svc_gutter_cleaning").checked ||
@@ -320,10 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!form.name.value.trim() || !form.phone.value.trim() || !form.service_address.value.trim())
       return popup("Please fill out contact information.");
 
-    const finalDateObj = window.selectedDateObj;
-    console.log("DEBUG final cutoff check:", finalDateObj);
-
-    if (nextDayCutoff(finalDateObj)) {
+    if (nextDayCutoff(window.selectedDateObj)) {
       popup("Next-day appointments close at 8 PM. Please choose another date.");
       return;
     }
@@ -331,7 +304,6 @@ document.addEventListener("DOMContentLoaded", () => {
     popupFinalConfirmation(window.selectedDate, window.selectedSlot);
 
     const payload = buildFinalPayload();
-    console.log("DEBUG booking payload:", payload);
 
     try {
       const res = await fetch("https://fastapi-production-d14c.up.railway.app/booking/create", {
@@ -341,7 +313,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await res.json();
-      console.log("DEBUG booking response:", data);
 
       if (!res.ok) {
         if (data.detail && data.detail.includes("already been booked")) {
@@ -368,7 +339,6 @@ document.addEventListener("DOMContentLoaded", () => {
       fetchAvailability(window.selectedDate);
 
     } catch (err) {
-      console.error("ERROR booking submit:", err);
       popup("Network or server error — check console.");
     }
   };
